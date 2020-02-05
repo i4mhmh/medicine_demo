@@ -27,49 +27,49 @@
 
 > Chinese_medicine_table
 
-- [ ] | 字段名               | 解释                       |
-  | -------------------- | -------------------------- |
-  | cm_id                | 药品id                     |
-  | cm_name              | 药品名称                   |
-  | cm_price             | 药品价格                   |
-  | cm_GDP               | 药品准字序号               |
-  | cm_produce_date      | 药品生产日期               |
-  | cm_dose              | 药品计量(单位mg)           |
-  | cm_size              | 药品规格                   |
-  | cm_ud                | 药品用法用量               |
-  | cm_element           | 药品成分                   |
-  | cm_effect            | 药品功效                   |
-  | cm_expiration_date   | 药品保质期                 |
-  | cm_storage_condition | 药品储存条件               |
-  | cm_certification     | 企业执行标准               |
-  | cm_kind              | 药品种类,从属medicine_name |
+| 字段名               | 解释                       |
+| -------------------- | -------------------------- |
+| cm_id                | 药品id                     |
+| cm_name              | 药品名称                   |
+| cm_price             | 药品价格                   |
+| cm_GDP               | 药品准字序号               |
+| cm_produce_date      | 药品生产日期               |
+| cm_dose              | 药品计量(单位mg)           |
+| cm_size              | 药品规格                   |
+| cm_ud                | 药品用法用量               |
+| cm_element           | 药品成分                   |
+| cm_effect            | 药品功效                   |
+| cm_expiration_date   | 药品保质期                 |
+| cm_storage_condition | 药品储存条件               |
+| cm_certification     | 企业执行标准               |
+| cm_kind              | 药品种类,从属medicine_name |
 
   > Western_medicine_table
 
-  | 字段名              | 解释           |
-  | ------------------- | -------------- |
-  | wm_id               | 药品id         |
-  | wm_name             | 药品名称       |
-  | wm_bases            | 药品主要成分   |
-  | wm_character        | 药品性状       |
-  | wm_pharmacologic    | 药品药理作用   |
-  | wm_interaction      | 药品相互作用   |
-  | wm_indication       | 药品适应症     |
-  | wm_usage            | 药品用法与用量 |
-  | wm_adverse_reaction | 药品不良反应   |
-  | wm_attention        | 药品注意事项   |
-  | wm_withdrawal_time  | 休药期         |
-  | wm_specification    | 规格           |
-  | wm_pack             | 包装           |
-  | wm_storage          | 储存           |
-  | wm_standard         | 执行标准       |
-  | wm_approval_number  | 批准文号       |
-  | wm_produce_date     | 生产日期       |
-  | wm_produce_number   | 生产编号       |
-  | wm_batch_number     | 生产批号       |
-  | wm_date_of_expiry   | 有效期至       |
-  | wm_license_key      | 许可证号       |
-  | wm_kind             | 药品分类       |
+| 字段名              | 解释           |
+| ------------------- | -------------- |
+| wm_id               | 药品id         |
+| wm_name             | 药品名称       |
+| wm_bases            | 药品主要成分   |
+| wm_character        | 药品性状       |
+| wm_pharmacologic    | 药品药理作用   |
+| wm_interaction      | 药品相互作用   |
+| wm_indication       | 药品适应症     |
+| wm_usage            | 药品用法与用量 |
+| wm_adverse_reaction | 药品不良反应   |
+| wm_attention        | 药品注意事项   |
+| wm_withdrawal_time  | 休药期         |
+| wm_specification    | 规格           |
+| wm_pack             | 包装           |
+| wm_storage          | 储存           |
+| wm_standard         | 执行标准       |
+| wm_approval_number  | 批准文号       |
+| wm_produce_date     | 生产日期       |
+| wm_produce_number   | 生产编号       |
+| wm_batch_number     | 生产批号       |
+| wm_date_of_expiry   | 有效期至       |
+| wm_license_key      | 许可证号       |
+| wm_kind             | 药品分类       |
 
 > salesman_tables
 
@@ -440,5 +440,138 @@ Route::get('/test',function(){
 	});
 ~~~
 
+##### 控制器
 
+> ./app/Http/Controllers
+
+~~~markdown
+1. 命名规范
+		大驼峰 + Controller.php
+2. 结构代码的书写
+		可以一键自动生成
+		方法:	>php artisan make:controller TestController
+		当要创建分目录控制器
+		方法:	>php artisan make:controller 目录/控制器名
+3. 绑定路由
+		路由命名规范: PCA P是平台目录 C是Controller控制器 A是函数名称
+		1.生成TestController.php
+			<?php
+                namespace App\Http\Controllers;
+                use Illuminate\Http\Request;
+                class TestController extends Controller
+                {
+                    public function test1(){
+                        phpinfo();
+                    }
+                }
+			?>
+		2.在./routes/web.php里添加:
+				Route::get('/home/test/test1','TestController@test1');
+				格式: Route::请求方式('urls','控制器名称@函数名')
+		3.在浏览器中输入相应地址即可看到效果
+4. 分目录控制器的路由
+		例:
+			1.	新建home/TestController.php php artisan home\TestController
+					public function demo(){
+                        echo 'ok';
+                    }
+			2.	在./routes/web.php里添加
+					Route::get('/home/test/test2','home\TestController@demo');
+					语法 Route::请求方式('urls','目录\控制器名称@函数名')
+5. 接受用户输入
+		
+~~~
+
+##### 数据库操作
+
+> mysql
+
+~~~markdown
+# 1. 修改配置文件
+		直接修改根目录下./env文件,
+            DB_CONNECTION=mysql
+            DB_HOST=127.0.0.1
+            DB_PORT=3306
+            DB_DATABASE=数据库名
+            DB_USERNAME=用户名
+            DB_PASSWORD=密码
+# 2. 构造方法(增删改查)
+		在./app/Http/Controllers/ 目录下新建控制器/db/TestController
+			php artisan make:controller db/TestController 
+		/db/TestController.php
+			use DB; //引入DB类
+            class TestController extends Controller
+            {
+                //新建add类
+                public function add(){
+                    $db = DB::table('chinese_medicine_table'); //指定表
+                    $res = $db -> insert(
+                        [
+                            'cm_id' => 2,	// '字段名' => '数据'
+                            'cm_name' => '三味散',
+                            'cm_price' => 33.20,
+                            'medicine_number' => 30,
+                        ]
+                    );
+                    dd($res);
+                }
+                
+                //新增update类
+                public function update(){
+                	
+                    //where判断('字段','运算符','修改后的值')
+                    $db = DB::table('chinese_medicine_table');
+            //自增1 减用decrement
+            //$res = $db -> where('cm_id', '=', 2) ->increment('medicine_number',1)
+                    $res = $db -> where('cm_id', '=', 2) -> update(
+                        [
+                            'cm_price' => 20,
+                        ],
+                        );
+                    dd($res);//执行后返回1表示受到影响的行数
+                }
+                
+                //新增select类
+                public function select(){
+                	// get()
+                    $db = DB::table('chinese_medicine_table')-> where('cm_id','=',2) -> 				get();
+                    foreach($db as $key => $value){
+                        echo "药名是:{$value -> cm_name}";
+                    }
+                }
+                
+                //新增del类
+                public function del(){
+                    $db = DB::table('chinese_medicine_table');
+                    $res = $db -> where('cm_name','=','三味散') -> delete();
+                    dd($res);
+                }
+            }           
+# 3. 建立路由与方法组合
+		./routes/web.php	新增
+			Route::group(['prefix' => 'db'], function () {
+            Route::get('add','db\TestController@add');
+            Route::get('update','db\TestController@update');
+            Route::get('select','db\TestController@select');
+            Route::get('del','db\TestController@del');
+            });
+# 4. 访问http://demo.com/db/xxx 查看效果
+
+# 总结
+	1. 增删改查前先指定数据表DB::table('数据表');
+	2. 增加用->insert([],[],[])
+	3. 删除用->delete();
+	4. 修改用->update()
+    5. 查询用->get()
+    6. where('字段','运算符','修改后的值')用于指定条件后跟 -> xxx
+       where('','','') -> first();	等价于limit 1
+ 	   where('','','') -> value('')	等价于取出指定单个值 
+ 	   where('','','') -> select('','') -> get();
+        -> orderby('','排序规则') -> get();
+# 拓展
+	1. 执行任意sql语句
+		DB::statement("insert into chinese_medicine_table values(null,'')");
+		DB::select("select * from medicine");
+	2. 
+~~~
 
