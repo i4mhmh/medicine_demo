@@ -561,8 +561,8 @@ Route::get('/test',function(){
 	1. 增删改查前先指定数据表DB::table('数据表');
 	2. 增加用->insert([],[],[])
 	3. 删除用->delete();
-	4. 修改用->update()
-    5. 查询用->get()
+	4. 修改用->update();
+    5. 查询用->get();
     6. where('字段','运算符','修改后的值')用于指定条件后跟 -> xxx
        where('','','') -> first();	等价于limit 1
  	   where('','','') -> value('')	等价于取出指定单个值 
